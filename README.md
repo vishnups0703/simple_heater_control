@@ -1,7 +1,7 @@
 # 🔥 Simple Heater Control System
 
 This project simulates a simple temperature-controlled heater system using a microcontroller. It demonstrates the use of **hysteresis control** to avoid rapid switching of a relay based on fluctuating temperature readings.
-![Simulation](https://github.com/vishnups0703/simple_heater_control/blob/main/linkedin_heater.png?raw=true)
+![Simulation](https://github.com/vishnups0703/simple_heater_control/blob/main/linkedin_Heater.PNG?raw=true)
 
 
 ---
