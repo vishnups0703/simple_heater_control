@@ -1,0 +1,61 @@
+#include <DHT.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+#define DHTPIN 2           // Pin connected to DHT22
+#define DHTTYPE DHT22
+#define RELAY_PIN 7        // Relay connected to pin 7
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);  // 0x27 is common I2C address
+
+bool heaterState = false;  // Initial state of heater
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, LOW);  // Start with heater OFF
+
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("Temp Control Sys");
+  delay(2000);
+  lcd.clear();
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+
+  if (isnan(temp)) {
+    lcd.setCursor(0, 0);
+    lcd.print("Sensor Error    ");
+    return;
+  }
+
+  // Hysteresis logic
+  if (temp < 24.0 && !heaterState) {
+    digitalWrite(RELAY_PIN, HIGH); // Turn ON heater
+    heaterState = true;
+  }
+  else if (temp > 26.0 && heaterState) {
+    digitalWrite(RELAY_PIN, LOW);  // Turn OFF heater
+    heaterState = false;
+  }
+
+  // LCD display
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temp);
+  lcd.print(" C  ");
+
+  lcd.setCursor(0, 1);
+  if (heaterState) {
+    lcd.print("Heater: ON ");
+  } else {
+    lcd.print("Heater: OFF");
+  }
+
+  delay(2000);  // Update every 2 seconds
+}
