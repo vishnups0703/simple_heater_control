@@ -1,44 +1,54 @@
-# simple_heater_control
-This is a simple embedded simulation project that controls a heater (represented by a relay) based on temperature readings using the hysteresis approach to avoid frequent ON/OFF toggling.
+# 🔥 Simple Heater Control System
 
-📌 How It Works
-A DHT22 sensor reads the ambient temperature.
+This project simulates a simple temperature-controlled heater system using a microcontroller. It demonstrates the use of **hysteresis control** to avoid rapid switching of a relay based on fluctuating temperature readings.
+![Simulation](https://github.com/vishnups0703/simple_heater_control/blob/main/linkedin_heater.png?raw=true)
 
-A relay module is used to simulate the heater.
 
-The system turns the heater ON when temperature falls below 24°C.
+---
 
-It turns the heater OFF when temperature rises above 26°C.
+## 📌 Objective
 
-If the temperature is between 24°C and 26°C, the system maintains the current heater state (no switching).
+- Turn **ON** the heater when the temperature goes **below 24°C**.
+- Turn **OFF** the heater when the temperature rises **above 26°C**.
+- **Maintain current state** when temperature is between 24°C and 26°C (hysteresis buffer).
 
-This is a classic hysteresis control logic, often used in thermostats to ensure system stability.
+---
 
-🛠️ Components Used
-DHT22 Temperature & Humidity Sensor
+## ⚙️ Components Used
 
-Relay Module (simulating the heater)
+- Temperature Sensor (DHT22)
+- Relay Module
+- Microcontroller (Arduino)
+- LED (for simulation)
 
-Arduino Uno (Wokwi simulator)
 
-LED (optional, for relay output indication)
+---
 
-🧠 Why Hysteresis?
-Without hysteresis, the relay could toggle rapidly if the temperature hovers around a single threshold (e.g., 25°C). Hysteresis adds a buffer zone to avoid such instability.
+## 🔁 Hysteresis Logic
 
-💻 Simulation
-This project is built and tested on Wokwi Simulator, allowing anyone to try it without physical hardware.
+Instead of switching the heater **ON/OFF** at a single threshold (which may cause relay to toggle rapidly due to slight fluctuations), a **buffer zone** is introduced:
 
-📷 Visual
+IF temperature < 24°C:
+Turn ON heater
+ELSE IF temperature > 26°C:
+Turn OFF heater
+ELSE:
+Maintain previous heater state
 
-(Simple decision logic used in this project)
+---
 
-🚀 Getting Started
-Clone this project or open in Wokwi.
+## 🧠 Why Hysteresis?
 
-Upload the code to the Arduino.
+Without hysteresis:
+- Rapid temperature changes (±0.1°C) near the threshold could cause **relay chatter** (unwanted rapid switching).
 
-Adjust the virtual DHT22 temperature to see the relay response.
+With hysteresis:
+- Adds a **safe deadband** between ON and OFF conditions.
+- Improves **stability** and **realism**.
+- Common in thermostats and industrial control systems.
 
-Modify threshold values if needed.
+---
+
+
+
 
