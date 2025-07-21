@@ -48,7 +48,7 @@ With hysteresis:
 - Common in thermostats and industrial control systems.
 
 ---
-
+## Wokwi Simulation Link : https://wokwi.com/projects/437062596710361089
 
 
 
